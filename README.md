@@ -84,7 +84,7 @@ const dynamoDBClient = new DynamoDB({
 
 if (require.main === module) {
   awsLiveness.waitForServices({
-    clients: [snsClient, sqsClient],
+    clients: [dynamoDBClient],
     waitSeconds: process.env.WAIT_SECONDS || 10
   })
     .catch(console.error);

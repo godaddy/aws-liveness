@@ -1,5 +1,5 @@
 {
-  "name": "aws-liveness",
+  "name": "@godaddy/aws-liveness",
   "version": "1.0.0",
   "description": "AWS Liveness tools",
   "main": "index.js",
