@@ -1,0 +1,64 @@
+{
+  "name": "aws-liveness",
+  "version": "1.0.0",
+  "description": "AWS Liveness tools",
+  "main": "index.js",
+  "module": "index.js",
+  "scripts": {
+    "coverage": "nyc mocha --recursive lib",
+    "lint": "eslint-godaddy --max-warnings 0 --ignore-pattern /coverage/ ./",
+    "release": "standard-version",
+    "test": "mocha --recursive lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/godaddy/aws-liveness.git"
+  },
+  "keywords": [
+    "aws",
+    "liveness",
+    "cloud",
+    "localstack"
+  ],
+  "author": "GoDaddy Operating Company, LLC",
+  "maintainer": "Jacopo Daeli <jacopo.daeli@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.361.0",
+    "debug": "^4.1.1"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "eslint": "^5.2.0",
+    "eslint-config-godaddy": "^2.1.1",
+    "eslint-plugin-json": "^1.2.0",
+    "eslint-plugin-mocha": "^5.1.0",
+    "mocha": "^5.2.0",
+    "nyc": "^13.1.0",
+    "sinon": "^7.1.1",
+    "standard-version": "^4.4.0"
+  },
+  "nyc": {
+    "check-coverage": true,
+    "reporter": [
+      "cobertura",
+      "json-summary",
+      "lcov",
+      "text",
+      "text-summary"
+    ],
+    "exclude": [
+      "coverage/",
+      "**/*.test.js",
+      "index.js"
+    ],
+    "lines": 4,
+    "functions": 4,
+    "all": true,
+    "cache": false,
+    "temp-directory": "./coverage/.nyc_output"
+  }
+}

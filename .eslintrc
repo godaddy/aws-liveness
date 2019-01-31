@@ -1,0 +1,9 @@
+{
+  "extends": [
+    "godaddy"
+  ],
+  "root": true,
+  "rules": {
+    "strict": 0,
+  }
+}
