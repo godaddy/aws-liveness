@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/godaddy/aws-liveness/compare/v1.1.1...v2.0.0) (2025-05-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* upgrade to modules and aws sdk 3
+
+- breaking: Upgrade from v2 AWS SDK to v3
+- breaking: Migrate to ES modules
+
+See [MIGRATION.md](./MIGRATION.md) for details.
+
+Also added a pull request workflow and did various development tool upgrades.
+
+* BREAKING CHANGE: upgrade modules and AWS SDK v3 (#32) ([d8ab565](https://github.com/godaddy/aws-liveness/commit/d8ab56545893c8449482101b9b8d3929ea8f9323)), closes [#32](https://github.com/godaddy/aws-liveness/issues/32)
+
 ### [1.1.1](https://github.com/godaddy/aws-liveness/compare/v1.1.0...v1.1.1) (2020-01-28)
 
 
