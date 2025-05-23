@@ -2,7 +2,7 @@
 
 # aws-liveness
 
-AWS Liveness tools.
+Waits for AWS/localstack services to be up and running.
 
 ## Install
 
@@ -12,34 +12,49 @@ npm i --save aws-liveness
 
 ## Usage
 
-```js
-const AWSLiveness = require('aws-liveness');
-const { DynamoDB } = require('aws-sdk');
+```javascript
+import AWSLiveness from 'aws-liveness';
+import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 
 const awsLiveness = new AWSLiveness();
-const dynamoDBClient = new DynamoDB();
 
 // ping and wait services up to 10 seconds
-awsLiveness.waitForServices({
-  clients: [dynamoDBClient],
-  waitSeconds: 10
-})
-  .then(() => console.log('services liveness ok'))
-  .catch(console.error);
+try {
+  await awsLiveness.waitForServices({
+    clients: [new DynamoDBClient()],
+    waitSeconds: 10
+  });
+  console.log('services are live');
+} catch (err) {
+  console.error('service liveness failed', err);
+}
 
 // ping a service
-awsLiveness.ping({ client: dynamoDBClient })
-  .then(() => console.log('dynamodb ping success'))
-  .catch(console.error);
+try {
+  await awsLiveness.ping({ client: new DynamoDBClient() });
+  console.log('dynamodb ping success');
+} catch (err) {
+  console.error('dynamodb ping failed', err);
+}
 ```
 
 ## Customization
 
-You can customize and/or extend `aws-liveness` tools to fit your application needs.
+By default, `AWSLiveness` supports running the following liveness commands for the following client types:
+
+| Client | Method |
+| ------- | ------ |
+| `DynamoDBClient` | `ListTablesCommand` |
+| `KinesisClient` | `ListStreamsCommand` |
+| `S3Client` | `ListBucketsCommand` |
+| `SNSClient` | `ListPlatformApplicationsCommand` |
+| `SQSClient` | `ListQueuesCommand` |
+
+ You can also create additional checks to customize liveness.
 
 ```js
-const AWSLiveness = require('aws-liveness');
-const { DynamoDB } = require('aws-sdk');
+import AWSLiveness from 'aws-liveness';
+import { DynamoDBClient, DescribeTableCommand } from '@aws-sdk/client-dynamodb';
 
 class MyCustomService {
   async fetchSomeData () {
@@ -48,15 +63,15 @@ class MyCustomService {
 }
 
 const customServices = [{
-  test: client => client instanceof DynamoDB,
-  ping: client => client.describeTable({ TableName: 'Foo' }).promise()
+  test: client => client instanceof DynamoDBClient,
+  ping: client => client.send(new DescribeTableCommand({ TableName: 'Foo' }))
 }, {
   test: client => client instanceof MyCustomService,
   ping: client => client.fetchSomeData()
 }]
 
 const awsLiveness = new AWSLiveness({ services: customServices });
-const dynamoDBClient = new DynamoDB();
+const dynamoDBClient = new DynamoDBClient();
 const myCustomService = new MyCustomService();
 
 awsLiveness.ping({ client: dynamoDBClient })
@@ -76,20 +91,22 @@ AWS Liveness uses [debug](https://www.npmjs.com/package/debug) module internally
 
 ### Localstack
 
-You can use this module to ensure that [LocalStack](https://) services are up and running before you test and/or start your application.
+You can use this module to ensure that [LocalStack](https://www.localstack.cloud/) services are up and running before you test and/or start your application.
 
 ```js
 // ping-localstack.js
-const dynamoDBClient = new DynamoDB({
+const dynamoDBClient = new DynamoDBClient({
   endpoint: process.env.DYNAMODB_ENDPOINT
 });
 
-if (require.main === module) {
-  awsLiveness.waitForServices({
+try {
+  await awsLiveness.waitForServices({
     clients: [dynamoDBClient],
     waitSeconds: process.env.WAIT_SECONDS || 10
-  })
-    .catch(console.error);
+  });
+} catch (err) {
+  console.error('service liveness failed', err);
+  process.exit(1);
 }
 ```
 
@@ -98,14 +115,9 @@ if (require.main === module) {
   "scripts": {
     "localstack": "docker run -it -p 4569:4569 -p 9999:8080 --rm localstack/localstack",
     "localstack-wait": "AWS_ACCESS_KEY_ID=fakeid AWS_SECRET_ACCESS_KEY=fakekey node ping-localstack.js",
-    "start": "node app.js",
-    "test-e2e": "AWS_ACCESS_KEY_ID=fakeid AWS_SECRET_ACCESS_KEY=fakekey mocha test-e2e/**/*.test.js",
+    "test-e2e": "npm run localstack && npm run localstack-wait && AWS_ACCESS_KEY_ID=fakeid AWS_SECRET_ACCESS_KEY=fakekey mocha test-e2e/**/*.test.js"
   }
 }
-```
-
-```console
-DYNAMODB_ENDPOINT=http://localhost:4569 npm run localstack-wait && npm run test-e2e
 ```
 
 ## Contributing
