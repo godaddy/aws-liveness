@@ -2,12 +2,13 @@
   "name": "aws-liveness",
   "version": "1.1.1",
   "description": "AWS Liveness tools",
-  "main": "index.js",
-  "module": "index.js",
+  "type": "module",
+  "module": "./lib/aws-liveness.mjs",
   "scripts": {
     "coverage": "nyc mocha --recursive lib",
-    "lint": "eslint-godaddy --max-warnings 0 --ignore-pattern /coverage/ ./",
+    "lint": "eslint .",
     "release": "standard-version",
+    "posttest": "npm run lint",
     "test": "mocha --recursive lib"
   },
   "repository": {
@@ -27,19 +28,22 @@
     "node": ">=8.0.0"
   },
   "dependencies": {
-    "aws-sdk": "^2.361.0",
+    "@aws-sdk/client-dynamodb": "^3.816.0",
+    "@aws-sdk/client-kinesis": "^3.816.0",
+    "@aws-sdk/client-s3": "^3.816.0",
+    "@aws-sdk/client-sns": "^3.816.0",
+    "@aws-sdk/client-sqs": "^3.816.0",
     "debug": "^4.1.1"
   },
   "devDependencies": {
-    "chai": "^4.1.2",
-    "eslint": "^6.0.0",
-    "eslint-config-godaddy": "^4.0.0",
-    "eslint-plugin-json": "^2.0.0",
-    "eslint-plugin-mocha": "^6.0.0",
-    "mocha": "^7.0.1",
+    "chai": "^5.2.0",
+    "eslint": "^9.27.0",
+    "eslint-config-godaddy": "^8.0.2",
+    "mocha": "^11.4.0",
     "nyc": "^15.0.0",
-    "sinon": "^8.0.0",
-    "standard-version": "^7.0.0"
+    "sinon": "^20.0.0",
+    "sinon-chai": "^4.0.0",
+    "standard-version": "^9.5.0"
   },
   "nyc": {
     "check-coverage": true,
