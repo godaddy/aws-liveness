@@ -13,7 +13,7 @@ npm i --save aws-liveness
 ## Usage
 
 ```javascript
-import AWSLiveness from 'aws-liveness';
+import AWSLiveness from '@godaddy/aws-liveness';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 
 const awsLiveness = new AWSLiveness();
@@ -53,7 +53,7 @@ By default, `AWSLiveness` supports running the following liveness commands for t
  You can also create additional checks to customize liveness.
 
 ```js
-import AWSLiveness from 'aws-liveness';
+import AWSLiveness from '@godaddy/aws-liveness';
 import { DynamoDBClient, DescribeTableCommand } from '@aws-sdk/client-dynamodb';
 
 class MyCustomService {
