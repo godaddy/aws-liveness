@@ -1,6 +1,6 @@
 {
   "name": "@godaddy/aws-liveness",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "AWS Liveness tools",
   "type": "module",
   "module": "./lib/aws-liveness.mjs",

@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.1](https://github.com/godaddy/aws-liveness/compare/v2.0.0...v2.0.1) (2025-07-23)
+
+
+### Bug Fixes
+
+* add [@godaddy](https://github.com/godaddy) scope ([#33](https://github.com/godaddy/aws-liveness/issues/33)) ([df196c8](https://github.com/godaddy/aws-liveness/commit/df196c84ffc365c9bb7b67674d9e347cba3a1177))
+
 ## [2.0.0](https://github.com/godaddy/aws-liveness/compare/v1.1.1...v2.0.0) (2025-05-23)
 
 
