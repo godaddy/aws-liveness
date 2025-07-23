@@ -1,5 +1,9 @@
 # Migration Guides
 
+## From aws-liveness to @godaddy/liveness
+
+Nothing has changed beyond adding a scope to the name of the package
+
 ## From v1 to v2
 
 The following breaking changes were made in v2:
