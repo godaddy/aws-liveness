@@ -4,6 +4,7 @@
   "description": "AWS Liveness tools",
   "type": "module",
   "module": "./lib/aws-liveness.mjs",
+  "types": "./index.d.ts",
   "scripts": {
     "coverage": "nyc mocha --recursive lib",
     "lint": "eslint .",
