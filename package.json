@@ -3,6 +3,7 @@
   "version": "2.0.2",
   "description": "AWS Liveness tools",
   "type": "module",
+  "main": "./lib/aws-liveness.mjs",
   "module": "./lib/aws-liveness.mjs",
   "types": "./index.d.ts",
   "scripts": {
@@ -29,11 +30,11 @@
     "node": ">=8.0.0"
   },
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "^3.816.0",
-    "@aws-sdk/client-kinesis": "^3.816.0",
-    "@aws-sdk/client-s3": "^3.816.0",
-    "@aws-sdk/client-sns": "^3.816.0",
-    "@aws-sdk/client-sqs": "^3.816.0",
+    "@aws-sdk/client-dynamodb": "^3.848.0",
+    "@aws-sdk/client-kinesis": "^3.848.0",
+    "@aws-sdk/client-s3": "^3.848.0",
+    "@aws-sdk/client-sns": "^3.848.0",
+    "@aws-sdk/client-sqs": "^3.848.0",
     "debug": "^4.1.1"
   },
   "devDependencies": {
